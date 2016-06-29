@@ -89,7 +89,8 @@ if __name__ == '__main__':
 
     images = read_images(pathDicom)
 
-    image = images[:, :, 1]
+    image = images[:, :, 0]
     imgSmooth = smooth(image)
-    segment1(imgSmooth)
+    sitk_show(imgSmooth)
+    segment(imgSmooth)
 
