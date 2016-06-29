@@ -46,7 +46,7 @@ def segment1(image):
 
     imgWhiteMatter = SimpleITK.ConnectedThreshold(image1=imgSmooth,
                                                   seedList=lstSeeds,
-                                                  lower=130,
+                                                  lower=50,
                                                   upper=190,
                                                   replaceValue=labelWhiteMatter)
 
@@ -84,13 +84,14 @@ def segment(imgSmooth):
 
 
 if __name__ == '__main__':
-    pathDicom = "./data"
+    headPath = "./data/MR000050.dcm"
+    pathDicom = "./data/1.dcm"
     print pathDicom
 
-    images = read_images(pathDicom)
+    image = read_image(pathDicom)
 
-    image = images[:, :, 0]
+    image = image[:, :, 0]
     imgSmooth = smooth(image)
     sitk_show(imgSmooth)
-    segment(imgSmooth)
+    segment1(imgSmooth)
 
