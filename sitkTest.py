@@ -39,18 +39,19 @@ def smooth(image):
     #imgSmooth = blurFilter.Execute(image)
     return imgSmooth
 
-def segment1(image):
+def segment1(imgSmooth):
     labelWhiteMatter = 1
     labelGrayMatter = 2
-    lstSeeds = [(150, 75)]
-
+    lstSeeds = [(100, 150)]
     imgWhiteMatter = SimpleITK.ConnectedThreshold(image1=imgSmooth,
                                                   seedList=lstSeeds,
-                                                  lower=50,
-                                                  upper=190,
+                                                  lower=-1024,
+                                                  upper=1024,
                                                   replaceValue=labelWhiteMatter)
 
     # Rescale 'imgSmooth' and cast it to an integer type to match that of 'imgWhiteMatter'
+    temp =  imgWhiteMatter.GetPixelID()
+    b = SimpleITK.RescaleIntensity(imgSmooth)
     imgSmoothInt = SimpleITK.Cast(SimpleITK.RescaleIntensity(imgSmooth), imgWhiteMatter.GetPixelID())
 
     # Use 'LabelOverlay' to overlay 'imgSmooth' and 'imgWhiteMatter'
@@ -85,13 +86,14 @@ def segment(imgSmooth):
 
 if __name__ == '__main__':
     headPath = "./data/MR000050.dcm"
-    pathDicom = "./data/1.dcm"
+    pathDicom = "./data/2.dcm"
     print pathDicom
 
     image = read_image(pathDicom)
 
     image = image[:, :, 0]
-    imgSmooth = smooth(image)
-    sitk_show(imgSmooth)
+    #imgSmooth = smooth(image)
+    # sitk_show(imgSmooth)
+    imgSmooth = image
     segment1(imgSmooth)
 
