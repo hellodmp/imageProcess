@@ -20,7 +20,7 @@ def read_dcm(path):
 
 #显示图像
 def show(image):
-    io.imshow(image[:,:,0])
+    io.imshow(image)
     io.show()
 
 #统计图像属性
@@ -34,5 +34,6 @@ def statisctics(image):
 if __name__ == '__main__':
     path = '/home/dmp/code/imageProcess/data/1.dcm'
     image = read_dcm(path)
+    image = image[:,:,0]
     show(image)
     #statisctics(image)
