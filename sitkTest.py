@@ -37,6 +37,7 @@ def smooth(image):
     #blurFilter.SetNumberOfIterations(5)
     #blurFilter.SetTimeStep(0.125)
     #imgSmooth = blurFilter.Execute(image)
+
     return imgSmooth
 
 def segment1(imgSmooth):
@@ -86,14 +87,17 @@ def segment(imgSmooth):
 
 if __name__ == '__main__':
     headPath = "./data/MR000050.dcm"
-    pathDicom = "./data/2.dcm"
+    pathDicom = '/home/dmp/ct/MyHead/MR000000.dcm'
+    #pathDicom = "./data/2.dcm"
     print pathDicom
 
     image = read_image(pathDicom)
-
+    sitk_show(image[:, :, 0])
+    '''
     image = image[:, :, 0]
     #imgSmooth = smooth(image)
     # sitk_show(imgSmooth)
     imgSmooth = image
     segment1(imgSmooth)
+    '''
 
